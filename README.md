@@ -42,7 +42,7 @@ The primary objectives of this project include:
 * **Modeling Method:** Equilibrium-stage modeling selected as a foundational baseline (with explicit documentation of rate-based accuracy differences for dilute feeds).
 
 📄 **Read the Full Detailed Stage 1 Report:**  
-👉 [`docs/literature-review.md`](./docs/literature-review.md) *(Link will be active in Step 3)*
+👉 [`docs/literature-review.md`](./docs/literature-review.md) 
 
 ---
 
