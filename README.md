@@ -1,7 +1,7 @@
 # CO₂ Capture from NGCC Flue Gas Using MEA Absorption
 
 > **Level 1 Process Engineering Project**  
-> **Status:** 🟡 Stage 1 — Literature Review and Background Research Complete
+> **Status:** 🟡 Stage 2 — Research Question, Objectives & Scope Complete
 
 ---
 
@@ -24,7 +24,7 @@ The primary objectives of this project include:
 
 ## 🛣️ 9-Stage Project Roadmap
 - [x] **Stage 1:** Literature Review, Background & Technology Selection
-- [ ] **Stage 2:** Research Question & Project Objectives
+- [x] **Stage 2:** Research Question, Objectives, Scope & Limitations
 - [ ] **Stage 3:** Process Design Basis
 - [ ] **Stage 4:** Aspen HYSYS Model Development
 - [ ] **Stage 5:** Model Verification and Reasonableness Checks
@@ -35,14 +35,11 @@ The primary objectives of this project include:
 
 ---
 
-## 📖 Current Progress (Stage 1 Summary)
-* **Target Stream:** Flue gas from NGCC plants containing **~3–5 mol% CO₂**, presenting a unique thermodynamic and kinetic challenge compared to coal exhaust (~12–15 mol%).
-* **Selected Technology:** Absorption with Monoethanolamine (MEA), utilizing the classic zwitterion-to-carbamate reaction pathway.
-* **Key Literature Findings:** Solvent regeneration energy (reboiler duty) dominates overall process costs (~3.6–4.0 MJ/kg CO₂ benchmark).
-* **Modeling Method:** Equilibrium-stage modeling selected as a foundational baseline (with explicit documentation of rate-based accuracy differences for dilute feeds).
-
-📄 **Read the Full Detailed Stage 1 Report:**  
-👉 [`docs/literature-review.md`](./docs/literature-review.md) 
+## 📖 Project Documentation & Progress
+* **Stage 1 — Literature Review & Background:**  
+  👉 [`docs/literature-review.md`](./docs/literature-review.md)
+* **Stage 2 — Research Question & Project Scope:**  
+  👉 [`docs/research-question.md`](./docs/research-question.md)
 
 ---
 
