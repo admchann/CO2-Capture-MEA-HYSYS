@@ -84,3 +84,4 @@ As a beginner-level HYSYS user, we will build an **equilibrium-stage absorber/st
 13. **ScienceDirect (2026).** "Open-access steady-state MEA CO2 capture model paper."
 14. **PMC.** "Impact of thermodynamics and kinetics on the carbon capture performance of the amine-based CO2 capture system."
 15. **Linköping University Electronic Press.** "Aspen HYSYS simulation of CO2 removal by amine absorption from a gas-based power plant." *ep.liu.se/ecp/027/008/ecp072708.pdf*
+
