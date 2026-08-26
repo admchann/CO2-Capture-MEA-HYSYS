@@ -66,3 +66,4 @@ Varying one parameter at a time does not capture non-linear interaction effects 
 * **Workload & Feasibility:** Executable within 4–6 hours per week over a 3–5 week timeline while maintaining academic rigor.
 * **Complementary Metrics:** Pairing separation efficiency (capture %) with energy intensity (MJ/kg CO₂) provides a holistic thermodynamic overview of column behavior.
 * **Foundational Baseline:** Establishes the necessary modeling foundation for future work in process optimization and techno-economic modeling.
+
