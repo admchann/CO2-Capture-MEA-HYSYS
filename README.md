@@ -1,7 +1,7 @@
 # CO₂ Capture from NGCC Flue Gas Using MEA Absorption
 
 > **Level 1 Process Engineering Project**  
-> **Status:** 🟡 Stage 2 — Research Question, Objectives & Scope Complete
+> **Status:** 🟡 Stage 3 — Process Design Basis Complete
 
 ---
 
@@ -25,7 +25,7 @@ The primary objectives of this project include:
 ## 🛣️ 9-Stage Project Roadmap
 - [x] **Stage 1:** Literature Review, Background & Technology Selection
 - [x] **Stage 2:** Research Question, Objectives, Scope & Limitations
-- [ ] **Stage 3:** Process Design Basis
+- [x] **Stage 3:** Process Design Basis
 - [ ] **Stage 4:** Aspen HYSYS Model Development
 - [ ] **Stage 5:** Model Verification and Reasonableness Checks
 - [ ] **Stage 6:** Sensitivity Analysis
@@ -40,6 +40,8 @@ The primary objectives of this project include:
   👉 [`docs/literature-review.md`](./docs/literature-review.md)
 * **Stage 2 — Research Question & Project Scope:**  
   👉 [`docs/research-question.md`](./docs/research-question.md)
+* **Stage 3 — Process Design Basis:**  
+  👉 [`docs/process-design-basis.md`](./docs/process-design-basis.md)
 
 ---
 
