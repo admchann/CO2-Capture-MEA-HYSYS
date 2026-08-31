@@ -5,6 +5,8 @@
 > **Status:** Complete (Pre-Simulation Baseline)  
 
 ---
+> **⚠️ Design Basis Evolution Note:**  
+> The preliminary stoichiometric calculations initially suggested a 10-stage absorber at 1,319 kgmol/h lean amine feed. However, detailed Aspen HYSYS model convergence and diagnostic sensitivity testing (documented in [simulation-development-notes.md](./simulation-development-notes.md)) demonstrated a finite-stage pinch under equilibrium modeling. To achieve the target ~90% CO₂ capture efficiency, the final base case was updated to **40 equilibrium stages** and **2,638 kgmol/h** lean amine circulation rate. This update supersedes the initial preliminary sizing values below.
 
 ## 1. Purpose
 This document defines the preliminary design basis for the base-case Aspen HYSYS simulation. It specifies the feed composition and conditions, solvent specification, preliminary operating conditions, product definitions, major unit operations, and key modelling assumptions.
