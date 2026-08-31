@@ -1,7 +1,7 @@
 # Stage 4: Aspen HYSYS Model Development Log
 
 > **Project:** CO₂ Capture from NGCC Flue Gas Using MEA Absorption  
-> **Status:** In Progress (Stage 4 — Absorber Diagnostics & Tuning)  
+> **Status:** Completed (Stage 4 — Absorber Diagnostics & Base Case Finalization)  
 
 ---
 
@@ -39,7 +39,7 @@ To test whether the shortfall was liquid-rate-limited, the Lean Amine Feed flow 
 | :--- | :--- | :--- | :--- |
 | **1,319 kgmol/h** | 1.0× | 33.9% | 0.341 |
 | **1,979 kgmol/h** | 1.5× | 39.1% | — |
-| **2,638 kgmol/h** | 2.0× | 42.8% | 0.31 |
+| **2,638 kgmol/h** | 2.0× | 42.8% | 0.310 |
 
 **Observation:** Capture efficiency gains diminished as liquid rate increased (a proportionally smaller improvement from 1.5× to 2.0× than from 1.0× to 1.5×), and rich loading achieved actually decreased at higher liquid rates (more solvent dilutes the CO₂ picked up per mole of MEA). This diminishing-returns pattern indicated the column was not purely liquid-rate-limited — stage count was also a binding constraint.
 
@@ -69,11 +69,66 @@ Rather than being a flaw in this project's model, this stage-count sensitivity i
 
 ---
 
-## 7. Status & Open Decision
+## 7. Initial Status & Decision Point
 
-As of the 30-stage test (78% capture), a decision has not yet been finalized on how to proceed. Two options remain under consideration:
+As of the 30-stage test (78% capture), two options were considered:
+1. Continue increasing stage count further to approach 90%, accepting a larger column design.
+2. Accept a lower base-case capture efficiency (70–80% range) and document the gap explicitly.
 
-1. **Continue increasing stage count further** to approach 90%, accepting a progressively larger and less realistic column design.
-2. **Accept a lower base-case capture efficiency** (in the 70–80% range) as the honest result of this simplified equilibrium-stage model, and document the gap to the 90% industrial benchmark explicitly as a central engineering finding of this project, rather than continuing to add stages purely to hit a target number.
+**Decision Executed:** Proceeded with combined sensitivity testing to achieve the targeted ~90% capture while analyzing system trade-offs.
 
-This decision will be made in the next work session and recorded here as a follow-up entry once finalized.
+---
+
+## 8. Follow-Up: Combined Liquid Rate and Stage Count Investigation
+
+Following the 30-stage / 1.5×-liquid-rate result (78% capture), the investigation continued by testing whether liquid rate and stage count compound favorably when increased together, rather than testing either variable in isolation at a fixed value of the other.
+
+### **8.1 Combined Effect at Fixed 30 Stages**
+
+Liquid rate was increased from 1,979 kgmol/h (1.5×) to 2,638 kgmol/h (2.0×) while holding stage count fixed at 30:
+
+| Stages | Liquid Rate | Capture Efficiency | Rich Loading (mol/mol) |
+| :--- | :--- | :--- | :--- |
+| **30** | 1.5× (1,979 kgmol/h) | 78.0% | — |
+| **30** | 2.0× (2,638 kgmol/h) | 83.1% | 0.363 |
+
+This produced a +5.1 percentage point gain, notably larger than the same liquid rate increase produced back at 10 stages (Section 4), where it was largely wasted on dilution rather than additional absorption. This confirmed that with more stage capacity available, the same liquid rate increase becomes meaningfully more effective — the two variables compound rather than acting independently.
+
+### **8.2 Ancillary Observation: Column Operating Pressure**
+
+A brief exploratory test was also run, varying the absorber's bottom-stage pressure drop (130 to 145 kPa) at fixed 30 stages / 2,638 kgmol/h. Capture efficiency rose modestly and monotonically (83.7% to 85.0%) as pressure increased, consistent with Henry's law (higher pressure increases CO₂ equilibrium solubility). This is a physically valid result, but pressure was not one of the three independent variables locked into this project's research question (`research-question.md`), so it was not pursued further and is not part of the base case. It is noted here as an observed, unexplored lever for potential future work.
+
+### **8.3 Further Stage Count Increases at Fixed 2.0× Liquid Rate**
+
+| Stages | Liquid Rate | Capture Efficiency | Δ from Previous |
+| :--- | :--- | :--- | :--- |
+| **30** | 2,638 kgmol/h (2.0×) | 83.07% | — |
+| **35** | 2,638 kgmol/h (2.0×) | 86.76% | +3.69 pp |
+| **40** | 2,638 kgmol/h (2.0×) | **89.40%** | +2.64 pp |
+
+---
+
+## 9. Final Base Case (Closing This Investigation)
+
+The trial was closed at **40 absorber stages** and **2,638 kgmol/h lean amine circulation rate** (2.0× the original stoichiometric base-case flow), achieving **89.4% CO₂ capture efficiency** — effectively at the 90% design target.
+
+This is adopted as the base case for the remainder of the project (Stage 6 validation and Stage 7 sensitivity analysis), in place of the originally literature-sourced 10-stage / 1,319 kgmol/h configuration from the design basis.
+
+---
+
+## 10. Engineering Discussion: Why This Result Matters
+
+Reaching ~90% capture required approximately 4× the stage count (40 vs. the literature-sourced base case of 10) and 2.0× the liquid circulation rate originally calculated from stoichiometry. This is interpreted as a direct, self-generated demonstration of the equilibrium-stage model limitation identified in the literature review (`literature-review.md`, Section 5): **equilibrium-stage models compensate for the absence of explicit mass-transfer and reaction kinetics by requiring substantially more theoretical stages to match performance that a rate-based model, or a real column, would achieve with fewer stages.**
+
+### **CAPEX vs. OPEX Trade-Off (Identified, Not Resolved)**
+
+Both effective levers used to raise capture efficiency carry different cost implications that this project's scope does not permit quantifying:
+
+* **Stage count is primarily a capital cost (CAPEX) driver:** A taller column is a larger one-time fabrication cost.
+* **Liquid circulation rate is primarily an operating cost (OPEX) driver:** More solvent circulated means more solvent that must be regenerated, directly increasing reboiler duty (this project's second response variable, per `research-question.md`).
+
+This project does not attempt to determine which trade-off is more economical, as doing so requires cost data (e.g., column fabrication cost per stage, steam/utility cost per unit reboiler duty) that is outside this project's scope. This trade-off is identified here as a specific, concrete motivation for a future techno-economic analysis project, rather than resolved within this Level 1 project.
+
+---
+
+*This log reflects the completed absorber diagnostic and sizing process. Values above are simulation outputs from this project's own HYSYS model (Acid Gas – Chemical Solvents property package, equilibrium-stage mode) and are not independently validated published data. The final base case (Section 9) supersedes the stage count and lean amine flow rate originally specified in `design-basis.md`; this deviation and its cause are treated as a primary engineering finding of this project rather than a correction to be silently applied.*
