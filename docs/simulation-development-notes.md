@@ -132,3 +132,45 @@ This project does not attempt to determine which trade-off is more economical, a
 ---
 
 *This log reflects the completed absorber diagnostic and sizing process. Values above are simulation outputs from this project's own HYSYS model (Acid Gas – Chemical Solvents property package, equilibrium-stage mode) and are not independently validated published data. The final base case (Section 9) supersedes the stage count and lean amine flow rate originally specified in `design-basis.md`; this deviation and its cause are treated as a primary engineering finding of this project rather than a correction to be silently applied.*
+
+---
+
+## 11. Stripper Column (T-101) & Preheater (E-100) Convergence
+
+Following the successful baseline determination for the 40-stage absorber (T-100), the solvent regeneration and preheating systems were integrated into the flowsheet.
+
+### 11.1 Booster Pump (P-101) & Decoupled Preheating
+To feed the stripper safely, the rich solvent exiting T-100 had to be pressurized and heated:
+* **Booster Pump (P-101):** Elevated the rich solvent pressure from 130 kPa to 250 kPa. This physical pressure increase is critical to suppress vaporization and line-flashing of dissolved CO₂ inside the preheater lines.
+* **Lean/Rich Cross-Exchanger (E-100):** Replaced the temporary heater bypass. E-100 was modeled using the `Simple End Point` framework, with a 10 kPa pressure drop specified across both the tube and shell sides. 
+* **Solver Specification:** The tube-side outlet temperature was set to **95.0°C**, serving as a stable, preheated liquid feed to the top stage of the stripper.
+
+### 11.2 Stripper Configuration (T-101) & Thermal Sanity Check
+The stripper was modeled using a **Reboiled Absorber** column with 8 equilibrium stages:
+* **Operating Pressures:** Top Stage = 150 kPa; Reboiler = 190 kPa.
+* **Active Specifications (Degrees of Freedom = 2):**
+  1. `Column Component Fraction`: Liquid CO₂ mole fraction in the reboiler bottoms = **0.027** (targeting our base lean loading of 0.25 mol CO₂/mol MEA).
+  2. `Column Boilup Ratio`: Initialized as a starting estimate of **1.0**.
+* **Convergence & Solvent Purity:** T-101 successfully converged. The reboiler bottom temperature settled at **119.2°C**, providing a safe thermodynamic margin below the **122°C (395 K) MEA thermal degradation threshold** while maintaining complete solvent regeneration.
+
+---
+
+## 12. Recycle Loop Closure & Numerical Convergence Challenges
+
+With both columns solved in an open-loop state, work proceeded to close the physical solvent recycle loop.
+
+### 12.1 Trim Cooler (E-102) & Let-down Valve (VLV-100)
+To prepare the regenerated lean amine for re-entry into T-100, the temperature and pressure profiles had to be matched to the absorber feed conditions:
+* **Trim Cooler (E-102):** Cooled the lean solvent from its post-exchange temperature down to exactly **40.0°C** (10 kPa pressure drop).
+* **Let-down Valve (VLV-100):** Dropped the regenerated solvent pressure from ~170 kPa to **120.0 kPa** to match the absorber inlet.
+* **System Solvent Mismatch:** Due to water evaporation and trace MEA vapor losses in the absorber clean gas and stripper overheads, the return stream flow rate settled at **2,529 kgmol/h** (a deficit of 109 kgmol/h from the baseline 2,638 kgmol/h feed). 
+
+### 12.2 Integration of the Makeup & Adjust Loops
+To balance the solvent inventory, a pure water `Makeup` stream (40°C, 120 kPa) and a `Mixer` were added. An **Adjust Block (ADJ-1)** was configured to manipulate the `Makeup` flow rate to target a mixed `Lean Amine to Recycle` flow of exactly **2,638 kgmol/h**. This sub-system successfully converged.
+
+### 12.3 Mathematical Circularity & Consistency Conflicts
+Upon introducing the final physical **Recycle Block (RCY-1)**, the simulation encountered a severe **numerical consistency conflict** across the absorber boundaries. 
+
+In a closed loop, HYSYS attempts to solve the composition of the absorber feed (`Lean Amine Feed`) dynamically based on what returns from the stripper. However, because both columns utilize highly sensitive, non-linear chemical solvent thermodynamics (`Acid Gas - Chemical Solvents`), the solver encountered a mathematical contradiction between its internal column stage-by-stage calculations and the hard-coded composition limits of the recycle boundary. 
+
+This resulted in a localized solver halt (columns reverting to yellow/unconverged status). To prevent numerical runaway, the physical loop was left open at the recycle block boundary. The current flowsheet stands as a fully verified, stage-by-stage open-loop simulation, with the exact recycle parameters calculated and ready for future loop-tuning iterations.
