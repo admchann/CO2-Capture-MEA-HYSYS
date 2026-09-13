@@ -174,3 +174,25 @@ Upon introducing the final physical **Recycle Block (RCY-1)**, the simulation en
 In a closed loop, HYSYS attempts to solve the composition of the absorber feed (`Lean Amine Feed`) dynamically based on what returns from the stripper. However, because both columns utilize highly sensitive, non-linear chemical solvent thermodynamics (`Acid Gas - Chemical Solvents`), the solver encountered a mathematical contradiction between its internal column stage-by-stage calculations and the hard-coded composition limits of the recycle boundary. 
 
 This resulted in a localized solver halt (columns reverting to yellow/unconverged status). To prevent numerical runaway, the physical loop was left open at the recycle block boundary. The current flowsheet stands as a fully verified, stage-by-stage open-loop simulation, with the exact recycle parameters calculated and ready for future loop-tuning iterations.
+
+---
+
+## 13. Closed-Loop Integration & Multi-Shell Preheater Optimization
+
+### 13.1 Closed-Loop Inventory Balance
+To successfully close the solvent recycle loop without numerical drift, a customized makeup sub-system was integrated:
+* **The Mass Deficit:** In open-loop operations, the solvent loop experienced a continuous mass loss of approximately **109 kgmol/h** (primarily water vapor lost via T-100 clean gas and T-101 overheads).
+* **Closed-Loop Convergence:** A fresh solvent `Dummy` makeup stream was mixed with the returning `Lean Amine Recycled` stream in `MIX-100`. By matching the feed composition and flow rate, the **Recycle Block (RCY-1)** was successfully converged using **Successive Substitution (Wegstein Q Max = 0.0)** to stabilize numerical iterations. The entire flowsheet is now 100% closed, steady-state, and fully converged.
+
+### 13.2 Preheater F_t Correction Factor & Multi-Shell Solution
+Initial attempts to increase heat recovery in the Lean/Rich Exchanger (E-100) by raising the rich preheat target to 105.0°C triggered a localized **"Temperature Cross"** warning and dropped the LMTD correction factor ($F_t$) to unacceptable levels. 
+* **The Solution:** The flow geometry was optimized by increasing the **Shells in Series to 4** in a counter-current pass configuration. 
+* **The Result:** This multi-shell arrangement physically resolved the localized temperature cross, restoring a highly efficient $F_t$ correction factor (>0.85) while successfully delivering the rich amine to T-101 at an optimized temperature of **105.0°C**.
+
+### 13.3 Process Key Performance Indicators (KPIs) & Energy Analysis
+With the closed-loop fully optimized at a 105.0°C preheat, the process performance metrics were extracted:
+* **Total Reboiler Duty ($Q_{\text{reboiler}}$):** $1.146 \times 10^7 \text{ kJ/h}$
+* **$\text{CO}_2$ Captured Mass Flow:** $1,754.87 \text{ kg/h}$
+* **Specific Reboiler Duty (SRD):** **6.53 MJ/kg $\text{CO}_2$ captured**
+
+* **Performance Interpretation:** This optimized configuration achieved a **6.2% energy reduction** from the 95°C open-loop baseline (6.96 MJ/kg). The gap between this result and the commercial coal-fired baseline (3.6–4.0 MJ/kg) is attributed to the low thermodynamic driving force of the dilute NGCC flue gas (4 mol% $\text{CO}_2$), which necessitates a high solvent-to-gas ratio, and the conservative nature of equilibrium-stage modeling.
