@@ -1,4 +1,4 @@
-# Stage 4: Aspen HYSYS Model Development Log
+# Stage 4 & 5: Aspen HYSYS Model Development Log
 
 > **Project:** CO₂ Capture from NGCC Flue Gas Using MEA Absorption  
 > **Status:** Completed (Stage 4 — Absorber Diagnostics & Base Case Finalization)  
