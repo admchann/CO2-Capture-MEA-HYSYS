@@ -123,7 +123,7 @@ The simplified base-case flowsheet is expected to include:
 
 ---
 
-## 9. Sensitivity Analysis Variables
+## 9. Sensitivity Analysis Variable
 
 | Independent Variable | Base Case | Sensitivity Study |
 | :--- | :--- | :--- |
