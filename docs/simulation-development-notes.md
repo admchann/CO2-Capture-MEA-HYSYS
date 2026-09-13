@@ -7,7 +7,7 @@
 
 ## 1. Context
 
-After building the flue gas and lean amine feed streams per the design basis and placing a 10-stage equilibrium absorber (`Acid Gas – Chemical Solvents` property package, Efficiency Modeling / equilibrium-stage mode), the column converged on the first attempt. However, the converged result showed CO₂ capture efficiency far below the 90% design target. This document records the diagnostic process used to investigate and partially resolve the shortfall.
+After building the flue gas and lean amine feed streams per the design basis and placing a 10-stage equilibrium absorber (`Acid Gas – Chemical Solvents` property package, Efficiency Modeling / equilibrium-stage mode), the column converged on the first attempt. However, the converged result showed CO₂ capture efficiency far below the 90% design target. This document records the diagnostic process used to investigate & partially resolve the shortfall.
 
 > **Note on Data Origin:** All values in this log are simulation outputs from this project's own HYSYS model (derived/simulated data) and are not published literature values.
 
